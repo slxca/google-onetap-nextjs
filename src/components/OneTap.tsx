@@ -10,12 +10,14 @@ const GoogleOneTapLogin = () => {
         oneTap();
     });
 
+    const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+
     const oneTap = () => {
         const { google } = window;
-        if (google) {
+        if (google && clientId) {
             google.accounts.id.initialize({
-                use_fedcm_for_prompt: false,
-                client_id: "789080324001-m0po6vtce4ohqgr8gmhe4jsjo1coktek.apps.googleusercontent.com",
+                use_fedcm_for_prompt: true,
+                client_id: clientId,
                 callback: async (response) => {
                     await call(response.credential);
                 },

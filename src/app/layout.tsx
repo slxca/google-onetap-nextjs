@@ -1,10 +1,8 @@
-import "./globals.css";
 import Script from "next/script";
 import React from "react";
+import "./globals.css";
 
-
-
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children } : Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body>
