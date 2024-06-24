@@ -1,15 +1,18 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import {OAuth2Client} from "google-auth-library";
 
+export async function POST(request: Request) {
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if(req.method !== 'POST') return res.status(405);
+    const payload = await request.json();
+
+    if(!payload.token) {
+        return Response.json("Missing Token", { status: 400 });
+    }
 
     try {
         const googleAuthClient = new OAuth2Client(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
 
         const ticket = await googleAuthClient.verifyIdToken({
-            idToken: req.body.token,
+            idToken: payload.token,
             audience: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
         });
 
@@ -20,10 +23,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             familyName: ticket.getPayload()?.family_name,
         }
 
-        console.log(data);
-
-        res.status(200);
+        return Response.json(data, { status: 200 });
     } catch (error) {
-        res.status(500);
+        console.log(error);
+        return Response.json("Internal Server Error", { status: 500 });
     }
+
 }
