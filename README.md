@@ -49,10 +49,6 @@ npm run dev
 
 4. Open your application in the browser. You should see the Google OneTap prompt appear.
 
-## Demo
-
-You can see a live demo of this implementation at [onetap.s-luca.com](https://onetap.s-luca.com).
-
 ## Contributing
 
 We welcome contributions! Please feel free to submit issues, fork the repository, and open pull requests.
